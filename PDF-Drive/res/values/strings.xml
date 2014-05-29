@@ -2,7 +2,10 @@
 <resources>
 
     <string name="app_name">PDF-Drive</string>
-    <string name="hello_world">Hello world!</string>
+    
+    <string name="main_heading">Upload a new PDF?</string>
+    <string name="main_button_upload">UPLOAD</string>
+    
     <string name="action_settings">Settings</string>
 
 </resources>

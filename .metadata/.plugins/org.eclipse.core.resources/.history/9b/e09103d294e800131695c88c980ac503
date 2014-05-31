@@ -45,7 +45,7 @@ public class OptionsActivity extends Activity {
 	        	
 	        	if(titleEditText.getText().toString().isEmpty() && 
 	        			numOfPagesEditText.getText().toString().isEmpty()){ // Checks if it is empty. 
-	        		Toast toast = Toast.makeText(OptionsActivity.this, getResources().getString(R.string.toast_title_and_page_num), 
+	        		Toast toast = Toast.makeText(OptionsActivity.this, "@string/toast_title_and_page_num", 
 	        				Toast.LENGTH_SHORT);
 	        		toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
 	        		toast.show();
@@ -54,7 +54,7 @@ public class OptionsActivity extends Activity {
 	        	
 	        	else if(titleEditText.getText().toString().isEmpty()){ // Checks if it is empty.
 	        		
-	        		Toast toast = Toast.makeText(OptionsActivity.this, getResources().getString(R.string.toast_title), 
+	        		Toast toast = Toast.makeText(OptionsActivity.this, "@string/toast_title", 
 	        				Toast.LENGTH_SHORT);
 	        		toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
 	        		toast.show();
@@ -63,7 +63,7 @@ public class OptionsActivity extends Activity {
 
 	        	else if(numOfPagesEditText.getText().toString().isEmpty()){ // Checks if it is empty.
 	        		
-	        		Toast toast = Toast.makeText(OptionsActivity.this, getResources().getString(R.string.toast_page_num), 
+	        		Toast toast = Toast.makeText(OptionsActivity.this, "@string/toast_page_num", 
 	        				Toast.LENGTH_SHORT);
 	        		toast.setGravity(Gravity.TOP|Gravity.LEFT, 0, 0);
 	        		toast.show();

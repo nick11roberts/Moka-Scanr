@@ -399,6 +399,9 @@ int string options_title 0x7f0a0013
 int string preview_button_cancel 0x7f0a0018
 int string preview_button_upload 0x7f0a0017
 int string preview_heading 0x7f0a0016
+int string toast_page_num 0x7f0a001a
+int string toast_title 0x7f0a001b
+int string toast_title_and_page_num 0x7f0a0019
 int style AppBaseTheme 0x7f0b008b
 int style AppTheme 0x7f0b008c
 int style TextAppearance_AppCompat_Base_CompactMenu_Dialog 0x7f0b0063

@@ -1497,6 +1497,11 @@ containing a value of this type.
         /**  PREVIEW ACTIVITY 
          */
         public static final int preview_heading=0x7f0a0016;
+        public static final int toast_page_num=0x7f0a001a;
+        public static final int toast_title=0x7f0a001b;
+        /**  TOASTS 
+         */
+        public static final int toast_title_and_page_num=0x7f0a0019;
     }
     public static final class style {
         /** 

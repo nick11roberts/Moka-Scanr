@@ -21,8 +21,8 @@
     <string name="preview_button_cancel">CANCEL</string>
     
     <!-- TOASTS -->
-    <string name="toast_title_and_page_num">Please enter a title and number of pages.</string>
-    <string name="toast_page_num">Please enter a number of pages.</string>
-    <string name="toast_title">Please enter a title.</string>
+    <string name="preview_heading">Upload this document to Google Drive?</string>
+    <string name="preview_button_upload">UPLOAD</string>
+    <string name="preview_button_cancel">CANCEL</string>
 
 </resources>

@@ -19,6 +19,7 @@
         android:paddingTop="20dp"
         android:text="@string/options_heading"
         android:textAlignment="center"
+        android:gravity="center"
         android:textAllCaps="true"
         android:textSize="28sp" />
 
@@ -94,15 +95,12 @@
         </TableRow>
     </TableLayout>
 	
-	
 	<Button
-        android:id="@+id/optionsButton"
-        android:layout_width="120dp"
-        android:layout_height="40dp"
-        android:background="@color/button_color"
-        android:text="@string/options_button_go"
-        android:textAlignment="center" /> 
-	
-
+	    android:id="@+id/optionsButton"
+	    android:layout_width="120dp"
+	    android:layout_height="40dp"
+	    android:background="@color/button_color"
+	    android:text="@string/options_button_go"
+	    android:textAlignment="center" />
 
 </LinearLayout>

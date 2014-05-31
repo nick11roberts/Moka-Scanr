@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">PDF-Drive</string>
+    <string name="action_settings">Settings</string>
+    
+    <!-- MAIN ACTIVITY -->
+    <string name="main_heading">Upload a new PDF?</string>
+    <string name="main_button_upload">Let's get started!</string>
+
+    <!-- OPTIONS ACTIVITY -->    
+    <string name="options_heading">Upload options</string>
+    <string name="options_pages">Number of pages?</string>
+    <string name="options_title">Title?</string>
+    <string name="options_folder">Folder? (optional)</string>
+    <string name="options_button_go">Launch camera app!</string>
+    
+    <!-- PREVIEW ACTIVITY -->
+    <string name="preview_heading">Upload a new PDF?</string>
+    <string name="preview_button_upload">Let's get started!</string>
+
+</resources>

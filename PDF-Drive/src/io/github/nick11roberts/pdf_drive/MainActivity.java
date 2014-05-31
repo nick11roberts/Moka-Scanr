@@ -22,11 +22,11 @@ public class MainActivity extends Activity {
 
     
 	    final Button mainButton = (Button) findViewById((Integer) R.id.mainButton);
-	    //final Button optionsButton = (Button) findViewById((Integer) R.id.optionsButton);
+	    
 	    
 	    mainButton.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {
-	        	//setContentView(R.layout.activity_options);
+	        	
 	        	Intent launchOptionsActivityIntent = new Intent(MainActivity.this, OptionsActivity.class);
 	        	startActivity(launchOptionsActivityIntent);
 	        }

@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:baselineAligned="true"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="80dp"
+        android:paddingTop="80dp"
+        android:text="@string/preview_heading"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textAllCaps="true"
+        android:textSize="28sp" />
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:shrinkColumns="*"
+		android:stretchColumns="*"  >
+
+        <Button
+            android:id="@+id/uploadButton"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@color/button_color"
+            android:gravity="right"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="@string/preview_button_upload"
+            android:textAlignment="center" />
+
+        <Button
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@color/button_color"
+            android:gravity="left"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="@string/preview_button_upload"
+            android:textAlignment="center" 
+            android:layout_marginLeft="17dp"
+            android:layout_marginRight="17dp" />
+
+    </TableRow>
+
+    <android.support.v7.widget.Space
+        android:id="@+id/space1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

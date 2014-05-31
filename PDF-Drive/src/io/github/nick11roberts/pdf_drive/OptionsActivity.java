@@ -2,6 +2,7 @@ package io.github.nick11roberts.pdf_drive;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,12 +15,27 @@ import android.os.Build;
 
 public class OptionsActivity extends Activity {
 
-    @Override
+
+	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
+        
+        
+        
+	    final Button optionsButton = (Button) findViewById((Integer) R.id.optionsButton);
+	    
+	    optionsButton.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View v) {
+	        	
+	        	
+	        	Intent launchPreviewIntent = new Intent(OptionsActivity.this, PreviewActivity.class);
+	        	startActivity(launchPreviewIntent);
+	        			
+	        	
+	        }
+	    });
 
-    
     }
-
+	
 }

@@ -1,0 +1,90 @@
+package io.github.nick11roberts.pdf_drive;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.os.Build;
+
+public class PreviewActivity extends Activity {
+
+	
+    private static final int FLAG_ACTIVITY_CLEAR_TOP = 67108864;
+    private static final int CAMERA_PIC_REQUEST = 1337;
+
+	@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_preview);
+        
+        Intent optionsIntent = getIntent();
+        Options optionClass = (Options)optionsIntent.getSerializableExtra("OptionItems");
+        
+        // FOR(place this in a for loop going from 0 to numberOfPages-1)
+        for(int i = 0; i <= 0; i++){
+        	camCall();
+        }
+        
+        // END FOR
+        
+        final Button uploadButton = (Button) findViewById((Integer) R.id.uploadButton);
+        final Button cancelButton = (Button) findViewById((Integer) R.id.cancelButton);
+        
+        uploadButton.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View v) {   
+	        	
+	        	// Call upload to Google Drive routine here. 
+	        	
+	        	bringMainActivityToFront();
+	        	
+	        	
+	        	
+	        }
+	    });
+        
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View v) {
+	        	
+	        	// Delete the image or PDF object/file. 
+	        	
+	        	bringMainActivityToFront();
+	        	
+	        	
+	        	
+	        }
+	    });
+        
+    }
+	
+	// Called by both upload and cancel buttons. 
+	protected void bringMainActivityToFront(){
+		Intent resetMainIntent = new Intent(PreviewActivity.this, MainActivity.class);
+		resetMainIntent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
+    	startActivity(resetMainIntent);
+	}
+	
+	// Called by startActivityForResult method. 
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) { 
+	    if (requestCode == CAMERA_PIC_REQUEST) {
+	    	Bitmap imageFromCamera = (Bitmap) data.getExtras().get("data");
+	    	
+	    	//add to a Bitmap array of numOfPages in length?
+	    	
+	    }
+	}
+	
+	// Called by the onCreate method. 
+	protected void camCall(){
+
+    	Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+    	startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
+
+	}
+}

@@ -1,0 +1,81 @@
+package io.github.nick11roberts.pdf_drive;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+import android.os.Build;
+
+public class OptionsActivity extends Activity {
+
+
+	public Options OptionClass = new Options();
+	
+	@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_options);
+        
+        
+        
+	    final Button optionsButton = (Button) findViewById((Integer) R.id.optionsButton);
+	    final EditText titleEditText = (EditText) findViewById( R.id.inputTextDocumentTitle);
+	    final EditText numOfPagesEditText = (EditText) findViewById( R.id.inputTextNumOfPages);
+	    final EditText folderEditText = (EditText) findViewById( R.id.inputTextFolder);
+	    
+	    
+	    optionsButton.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View v) {
+	        	
+	        	// Set all of the OptionClass variables with their corresponding inputs.
+	        	
+	        	if(titleEditText.getText().toString() == "" && numOfPagesEditText.getText().toString() == ""){ // Checks if it is empty. 
+	        		Toast.makeText(OptionsActivity.this, "Please enter a title and number of pages.", Toast.LENGTH_SHORT).show();
+	        	    
+	        	}
+	        	
+	        	else if(titleEditText.getText().toString() == ""){ // Checks if it is empty.
+	        		Toast.makeText(OptionsActivity.this, "Please enter a title.", Toast.LENGTH_SHORT).show();
+	        	    
+	        	}
+
+	        	else if(numOfPagesEditText.getText().toString() == ""){ // Checks if it is empty.
+	        		Toast.makeText(OptionsActivity.this, "Please enter a number of pages.", Toast.LENGTH_SHORT).show();
+	        	    
+	        	}
+	        	
+	        	// Folder field can be empty. 
+	        	
+	        	
+	        	
+	        	
+	        	// ADD MORE FIELD OPTIONS HERE AS MORE FIELDS BECOME AVAILABLE. 
+	        	
+	        	if( (titleEditText.getText().isEmpty()) && (numOfPagesEditText.getText().toString() != "") ){ 
+	        		// Folder field is optional, so allow user to proceed if both fields are nonempty. 
+	        		// Set OptionClass object values. 
+	        		OptionClass.setTitle(titleEditText.getText().toString());
+	        		OptionClass.setNumberOfPages(Integer.parseInt(numOfPagesEditText.getText().toString()));
+	        		OptionClass.setFolder(folderEditText.getText().toString());
+	        		
+	        		// Finally, launch intent. 
+	        		Intent launchPreviewIntent = new Intent(OptionsActivity.this, PreviewActivity.class);
+	        		startActivity(launchPreviewIntent);
+	        	}	
+	        	
+	        }
+	        
+	    });
+
+    }
+	
+}

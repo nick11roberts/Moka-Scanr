@@ -15,7 +15,10 @@ import android.os.Build;
 
 public class PreviewActivity extends Activity {
 
+	// We need this because the passed options object cannot be made public. 
+	private Options optionClassPrev = new Options();
 	
+    // Global constants for Android specific values. 
     private static final int FLAG_ACTIVITY_CLEAR_TOP = 67108864;
     private static final int CAMERA_PIC_REQUEST = 1337;
 
@@ -23,27 +26,73 @@ public class PreviewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview);
-        // FOR(place this in a for loop going from 0 to numberOfPages-1)
-        camCall();  
-        // END FOR
-
+        
+        // Receive options object from OptionsActivity class which launched this activity.
+    	Intent launchPreviewIntent = getIntent();
+        Options optionClassOp = (Options)launchPreviewIntent.getSerializableExtra("OptionItems");
+        
+        // Set our current object with the values stored in the passed, (currently non public) options object. 
+        optionClassPrev.setTitle(optionClassOp.getTitle());
+        optionClassPrev.setNumberOfPages(optionClassOp.getNumberOfPages());
+        optionClassPrev.setFolder(optionClassOp.getFolder());
+        
+        // Preview's options object will be used here and elsewhere. 
+        for(int i = 0; i <= optionClassPrev.getNumberOfPages()-1; i++){
+        	camCall();
+        }
+        
+        
+        final Button uploadButton = (Button) findViewById((Integer) R.id.uploadButton);
+        final Button cancelButton = (Button) findViewById((Integer) R.id.cancelButton);
+        
+        uploadButton.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View v) {   
+	        	
+	        	// Call upload to Google Drive routine here. 
+	        	
+	        	bringMainActivityToFront();
+	        	
+	        	
+	        	
+	        }
+	    });
+        
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View v) {
+	        	
+	        	// Delete the image or PDF object/file. 
+	        	
+	        	bringMainActivityToFront();
+	        	
+	        	
+	        	
+	        }
+	    });
+        
     }
+	
+	// Called by both upload and cancel buttons. 
+	protected void bringMainActivityToFront(){
+		Intent resetMainIntent = new Intent(PreviewActivity.this, MainActivity.class);
+		resetMainIntent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
+    	startActivity(resetMainIntent);
+	}
 	
 	// Called by startActivityForResult method. 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) { 
 	    if (requestCode == CAMERA_PIC_REQUEST) {
-	    	Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+	    	Bitmap imageFromCamera = (Bitmap) data.getExtras().get("data");
+	    	
+	    	//add to a Bitmap array of numOfPages in length?
+	    	
 	    }
 	}
 	
 	// Called by the onCreate method. 
 	protected void camCall(){
-		
-		
+
     	Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
     	startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST);
-    			
-    	
-    	
+
 	}
 }

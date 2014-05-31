@@ -1,0 +1,52 @@
+package io.github.nick11roberts.pdf_drive;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
+import android.os.Build;
+
+public class OptionsActivity extends Activity {
+
+
+	public Options OptionClass = new Options();
+	
+	@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_options);
+        
+        
+        
+	    final Button optionsButton = (Button) findViewById((Integer) R.id.optionsButton);
+	    final EditText titleEditText = (EditText) findViewById( R.id.inputTextDocumentTitle);
+	    final EditText numOfPagesEditText = (EditText) findViewById( R.id.inputTextNumOfPages);
+	    final EditText folderEditText = (EditText) findViewById( R.id.inputTextFolder);
+	    
+	    
+	    optionsButton.setOnClickListener(new View.OnClickListener() {
+	        public void onClick(View v) {
+	        	
+	        	OptionClass.setTitle(titleEditText.getText().toString());
+	        	OptionClass.setNumberOfPages((Integer)(numOfPagesEditText.getText().toString()));
+	        	
+	        	
+	        	
+	        	Intent launchPreviewIntent = new Intent(OptionsActivity.this, PreviewActivity.class);
+	        	startActivity(launchPreviewIntent);
+	        			
+	        	
+	        }
+	    });
+
+    }
+	
+}

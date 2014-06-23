@@ -1,0 +1,49 @@
+package io.github.nick11roberts.pdf_drive;
+
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.drive.Drive;
+
+import android.graphics.Bitmap;
+
+
+public class DriveUploadClass {
+	private Bitmap dataToUpload; // Temporarily a Bitmap type, will change to PDF later. 
+	private OptionsClass DriveOptions = new OptionsClass();
+	
+	
+	// CONSTRUCTOR
+	public DriveUploadClass(OptionsClass inputOptions){
+		DriveOptions = inputOptions;
+	}
+	
+	
+
+	/**
+	 * @return the dataToUpload
+	 */
+	public Bitmap getDataToUpload() {
+		return dataToUpload;
+	}
+
+	/**
+	 * @param dataToUpload the dataToUpload to set
+	 */
+	public void setDataToUpload(Bitmap inputDataToUpload) {
+		dataToUpload = inputDataToUpload;
+	}
+	
+	
+	
+	/////////////////////// Google Drive stuff here. 
+	
+	public void upload(){
+		GoogleApiClient client = new GoogleApiClient.Builder(this)
+        .addApi(Drive.API)
+        .addScope(Drive.SCOPE_DRIVE_LOGIN)
+        .setAccountName("users.account.name@gmail.com")
+        .build();
+		client.connect();
+	}
+}
+
+

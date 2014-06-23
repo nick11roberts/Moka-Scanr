@@ -1,0 +1,11 @@
+package io.github.nick11roberts.pdf_drive;
+
+import android.graphics.Bitmap;
+
+
+public class DriveUploadClass {
+	private Bitmap DataToUpload; // Temporarily a Bitmap type, will change to PDF later. 
+	
+}
+
+

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Document Uploader</string>
+    <string name="action_settings">Settings</string>
+    
+    
+    <!-- MAIN ACTIVITY -->
+    <string name="main_heading">Upload a new PDF?</string>
+    <string name="main_button_upload">BEGIN</string>
+
+    <!-- OPTIONS ACTIVITY -->    
+    <string name="options_heading">Upload options</string>
+    <string name="options_pages">Number of pages?</string>
+    <string name="options_title">Document Title?</string>
+    <string name="options_folder">Folder? (optional)</string>
+    <string name="options_username">Google Drive Username</string>
+    <string name="options_password">Google Drive Password</string>
+    <string name="options_button_go">CONTINUE</string>
+    
+    
+    <!-- PREVIEW ACTIVITY -->
+    <string name="preview_heading">Upload this document to Google Drive?</string>
+    <string name="preview_button_upload">UPLOAD</string>
+    <string name="preview_button_cancel">CANCEL</string>
+    
+    <!-- TOASTS -->
+    <string name="toast_title_and_page_num">Please enter a title and number of pages.</string>
+    <string name="toast_page_num">Please enter a number of pages.</string>
+    <string name="toast_title">Please enter a title.</string>
+
+</resources>

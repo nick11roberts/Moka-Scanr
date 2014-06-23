@@ -1,0 +1,8 @@
+package io.github.nick11roberts.pdf_drive;
+
+import android.graphics.Bitmap;
+
+
+public class DriveUploadClass {
+	Bitmap mBMP = new Bitmap;
+}

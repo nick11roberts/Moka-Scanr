@@ -37,8 +37,8 @@ public class PreviewActivity extends Activity {
 	//private GoogleApiClient mGoogleApiClient;
 	
 	// stuff for Dropbox
-	private static final String appKey = "rcdpg0hv3w2whqp";
-    private static final String appSecret = "vl380k4q0icywbs";
+	private static final String appKey = "x";
+    private static final String appSecret = "x";
     private static final int REQUEST_LINK_TO_DBX = 0;
     private DbxAccountManager mDbxAcctMgr;
     

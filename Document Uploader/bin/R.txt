@@ -389,6 +389,7 @@ int string abc_shareactionprovider_share_with 0x7f0a000c
 int string abc_shareactionprovider_share_with_application 0x7f0a000b
 int string action_settings 0x7f0a000e
 int string app_name 0x7f0a000d
+int string dropbox_fail 0x7f0a001c
 int string main_button_upload 0x7f0a0010
 int string main_heading 0x7f0a000f
 int string options_button_go 0x7f0a0015

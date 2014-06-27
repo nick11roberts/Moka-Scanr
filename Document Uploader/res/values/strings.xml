@@ -25,5 +25,7 @@
     <string name="toast_title_and_page_num">Please enter a title and number of pages.</string>
     <string name="toast_page_num">Please enter a number of pages.</string>
     <string name="toast_title">Please enter a title.</string>
+    <string name="dropbox_fail">Cannot connect to Dropbox.</string>
+    
 
 </resources>

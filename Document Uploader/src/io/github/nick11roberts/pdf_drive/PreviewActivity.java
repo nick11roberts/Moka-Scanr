@@ -3,7 +3,7 @@ package io.github.nick11roberts.pdf_drive;
 import java.io.IOException;
 
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.api.services.drive.DriveScopes;
+//import com.google.api.services.drive.DriveScopes;
 import com.dropbox.sync.android.DbxAccountManager;
 import com.dropbox.sync.android.DbxException;
 import com.dropbox.sync.android.DbxException.Unauthorized;
@@ -37,8 +37,8 @@ public class PreviewActivity extends Activity {
 	//private GoogleApiClient mGoogleApiClient;
 	
 	// stuff for Dropbox
-	private static final String appKey = "rcdpg0hv3w2whqp";
-    private static final String appSecret = "vl380k4q0icywbs";
+	private static final String appKey = "qahwki8qn4p53oi";
+    private static final String appSecret = "aseeqi78l8nnuuz";
     private static final int REQUEST_LINK_TO_DBX = 0;
     private DbxAccountManager mDbxAcctMgr;
     
@@ -49,6 +49,24 @@ public class PreviewActivity extends Activity {
     private static final int CAMERA_PIC_REQUEST = 1337;
     //private static final int CHOOSE_ACCOUNT = 0;
 
+    
+    
+    @Override
+	protected void onResume() {
+		super.onResume();
+		System.out.println("onResume called... ");
+		if (mDbxAcctMgr.hasLinkedAccount()) {
+			System.out.println("onResume called... Account linked...");
+			//toDropbox();
+		} else{
+			System.out.println("onResume called... Account NOT linked...");
+		}
+	}
+    
+    
+    
+    
+    
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +83,8 @@ public class PreviewActivity extends Activity {
         
         // Preview's options object will be used here and elsewhere. 
         for(int i = 0; i <= optionClassPrev.getNumberOfPages()-1; i++){
-        	camCall();
+        	//Temporarily commented out for debugging purposes. 
+        	//camCall();
         }
         
         
@@ -86,7 +105,7 @@ public class PreviewActivity extends Activity {
 	    		toDropbox();
 	        	
 	        	
-	        	bringMainActivityToFront();
+	        	//bringMainActivityToFront();
 	        	
 	        	
 	        	
@@ -109,7 +128,12 @@ public class PreviewActivity extends Activity {
 	        }
 	    });
         
+        // Set Dropbox acctmgr instance
+        mDbxAcctMgr = DbxAccountManager.getInstance(getApplicationContext(), appKey, appSecret);
+        
     }
+	
+	
 	
 	
 	
@@ -150,10 +174,10 @@ public class PreviewActivity extends Activity {
 	private void toDropbox() {
 		// TODO Auto-generated method stub
 		
-		mDbxAcctMgr = DbxAccountManager.getInstance(getApplicationContext(), appKey, appSecret);
+		
 		mDbxAcctMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX);
 		
-		System.out.println("CALLS TO DROPBAWKS");
+		System.out.println("start link... ");
 		
 		
 	}
@@ -161,7 +185,7 @@ public class PreviewActivity extends Activity {
 	private void dropboxFileManagingMachine() throws InvalidPathException, IOException{
 		// LINK TO USER
 		
-		System.out.println("DROB FILE MAN WORKS");
+		System.out.println("DROPBOX FILE MANAGING THING WORKS");
 		
 		
 		// CREATE DROPBOX FILE SYSTEM
@@ -182,8 +206,13 @@ public class PreviewActivity extends Activity {
 	}
 	
 	
+	
+	
 	// Called by startActivityForResult method. 
 		protected void onActivityResult(int requestCode, int resultCode, Intent data) { 
+			
+			System.out.println("Reaches onActivityResult...");
+			
 		    if (requestCode == CAMERA_PIC_REQUEST) {
 		    	imageFromCamera = (Bitmap) data.getExtras().get("data");
 		    	
@@ -198,18 +227,14 @@ public class PreviewActivity extends Activity {
 		    	//add to a Bitmap array of numOfPages in length?
 		    	
 		    }
-		    */
+		    */	
 		    
-		    if (requestCode == REQUEST_LINK_TO_DBX) {
-		    	
-		    	System.out.println("CALLS REQUEST LINK TO DBX");
-		    	
+		    else if (requestCode == REQUEST_LINK_TO_DBX) {
+		    	System.out.println("requestCode...");
 	            if (resultCode == Activity.RESULT_OK) {
-	            	
-	            	System.out.println("CALLS REQUEST RESULT OK");
-	            	
-	                ///// CALL OUR DROPBOX UPLOAD METHOD
+	            	System.out.println("result is okay...");
 	            	try {
+	            		System.out.println("in try... should call file man...");
 						dropboxFileManagingMachine();
 					} catch (InvalidPathException e) {
 						// TODO Auto-generated catch block
@@ -218,18 +243,23 @@ public class PreviewActivity extends Activity {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-	            	
-	            	
-	            	
-	            } else {
+	            } 
+	            else {
 	            	Toast toast = Toast.makeText(PreviewActivity.this, getResources().getString(R.string.dropbox_fail), 
 	        				Toast.LENGTH_SHORT);
 	            	toast.show();
-	            	// Tell the user that they have made a terrible mistake and must be punished. Muahaha. 
+	            	// Tell the user that they have made a terrible mistake and must be punished. Muahaha.
 	            }
-	        } else {
+	        } 
+		    
+		    
+		    
+		    else {
 	            super.onActivityResult(requestCode, resultCode, data);
 	        }
+		    
+		    
+		    
 		}
 }
 

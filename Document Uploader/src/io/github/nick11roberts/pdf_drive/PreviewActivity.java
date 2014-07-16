@@ -37,8 +37,10 @@ public class PreviewActivity extends Activity {
 	//private GoogleApiClient mGoogleApiClient;
 	
 	// stuff for Dropbox
+
 	private static final String appKey = "qahwki8qn4p53oi";
     private static final String appSecret = "aseeqi78l8nnuuz";
+
     private static final int REQUEST_LINK_TO_DBX = 0;
     private DbxAccountManager mDbxAcctMgr;
     
@@ -102,10 +104,10 @@ public class PreviewActivity extends Activity {
 	        	
 	        	
 	        	
-	    		toDropbox();
+	    		toDropbox(); // Will eventually bring the main activity to the front... 
 	        	
 	        	
-	        	//bringMainActivityToFront();
+	        	
 	        	
 	        	
 	        	
@@ -201,6 +203,9 @@ public class PreviewActivity extends Activity {
 		
 		//////// REPLACE ABOVE WITH 
 		// imageFromCamera
+		
+		
+		bringMainActivityToFront();
 		
 		
 	}

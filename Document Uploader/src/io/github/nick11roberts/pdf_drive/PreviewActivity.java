@@ -40,7 +40,7 @@ public class PreviewActivity extends Activity {
 
 	private static final String appKey = "qahwki8qn4p53oi";
     private static final String appSecret = "aseeqi78l8nnuuz";
-
+    
     private static final int REQUEST_LINK_TO_DBX = 0;
     private DbxAccountManager mDbxAcctMgr;
     
@@ -57,12 +57,7 @@ public class PreviewActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		System.out.println("onResume called... ");
-		if (mDbxAcctMgr.hasLinkedAccount()) {
-			System.out.println("onResume called... Account linked...");
-			//toDropbox();
-		} else{
-			System.out.println("onResume called... Account NOT linked...");
-		}
+		
 	}
     
     
@@ -103,8 +98,26 @@ public class PreviewActivity extends Activity {
 	        	// Scratch that, call upload to Dropbox method here. 
 	        	
 	        	
+	        	if (mDbxAcctMgr.hasLinkedAccount()) {
+	    			System.out.println("onResume called... Account linked...");
+	    			try {
+	    				dropboxFileManagingMachine();
+	    			} catch (InvalidPathException e) {
+	    				// TODO Auto-generated catch block
+	    				e.printStackTrace();
+	    			} catch (IOException e) {
+	    				// TODO Auto-generated catch block
+	    				e.printStackTrace();
+	    			}
+	    		} else{
+	    			System.out.println("onResume called... Account NOT linked...");
+	    			toDropboxNotLinked(); // Will eventually bring the main activity to the front... 
+	    		}
 	        	
-	    		toDropbox(); // Will eventually bring the main activity to the front... 
+	        	
+	        	
+	        	
+	    		
 	        	
 	        	
 	        	
@@ -159,21 +172,8 @@ public class PreviewActivity extends Activity {
 	
 	
 	
-	private void toDrive(){
-		/*AccountManager am = AccountManager.get(activity);
-		am.getAuthToken(am.getAccounts())[0],
-		    "oauth2:" + DriveScopes.DRIVE,
-		    new Bundle(),
-		    true,
-		    new OnTokenAcquired(),
-		    null);*/
-		
-		
-		
-		
-	}
 	
-	private void toDropbox() {
+	private void toDropboxNotLinked() {
 		// TODO Auto-generated method stub
 		
 		
@@ -185,21 +185,47 @@ public class PreviewActivity extends Activity {
 	}
 	
 	private void dropboxFileManagingMachine() throws InvalidPathException, IOException{
-		// LINK TO USER
+		
+		
 		
 		System.out.println("DROPBOX FILE MANAGING THING WORKS");
+		
+		
+		String fileName = optionClassPrev.getTitle(); // CHANGE THIS EVENTUALLY
+		
+		
+		DbxPath path = new DbxPath(DbxPath.ROOT, fileName );
+		
+		if(!optionClassPrev.getFolder().isEmpty()){ // Check if the user wants a new folder
+			DbxPath optUsrPath = new DbxPath("/" + optionClassPrev.getFolder());
+			path = new DbxPath(optUsrPath, fileName );
+		}
+		else{ 
+			// no new folder, ROOT then (path doesn't change)... 
+		}
+		
 		
 		
 		// CREATE DROPBOX FILE SYSTEM
 		DbxFileSystem dbxFs = DbxFileSystem.forAccount(mDbxAcctMgr.getLinkedAccount());
 		
-		// CREATE DROPBOX FILE
-		DbxFile testFile = dbxFs.create(new DbxPath("hello.txt"));
-		try {
-		    testFile.writeString("Hello Dropbox!");
-		} finally {
-		    testFile.close();
+		// CREATE DROPBOX FILE IF NOT EXIST
+		if (!dbxFs.exists(path)) {
+			DbxFile testFile = dbxFs.create(path);
+			try {
+			    testFile.writeString("Hello Dropbox!!!");
+			} finally {
+			    testFile.close();
+			}
+		}else{
+			Toast toast = Toast.makeText(PreviewActivity.this, getResources().getString(R.string.dropbox_fail_file_exists), 
+    				Toast.LENGTH_SHORT);
+			
+			//Overwrite (y/n)? fragment inflates
+			
+        	toast.show();
 		}
+		
 		
 		//////// REPLACE ABOVE WITH 
 		// imageFromCamera

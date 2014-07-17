@@ -46,6 +46,8 @@ public class PreviewActivity extends Activity {
     
     private Bitmap imageFromCamera;
 	
+    private int sameFileIndex = 0;
+    
     // Global constants for Android specific values. 
     private static final int FLAG_ACTIVITY_CLEAR_TOP = 67108864;
     private static final int CAMERA_PIC_REQUEST = 1337;
@@ -218,12 +220,27 @@ public class PreviewActivity extends Activity {
 			    testFile.close();
 			}
 		}else{
+			/*
 			Toast toast = Toast.makeText(PreviewActivity.this, getResources().getString(R.string.dropbox_fail_file_exists), 
     				Toast.LENGTH_SHORT);
-			
-			//Overwrite (y/n)? fragment inflates
-			
         	toast.show();
+        	*/
+			sameFileIndex++;
+			String indexString = "(" + Integer.toString(sameFileIndex) + ")";
+			String newTitle = optionClassPrev.getTitle();
+			int dotIndex = newTitle.lastIndexOf(".");
+			if(dotIndex != -1){ // if it has a file extension... 
+				String beforeDot = newTitle.substring(0, dotIndex);
+				String afterDot = newTitle.substring(dotIndex, newTitle.length());
+				newTitle = beforeDot + indexString +  afterDot;
+			}else{ // no file extension... 
+				newTitle = optionClassPrev.getTitle() + indexString;
+			}
+			
+			optionClassPrev.setTitle(newTitle);
+			
+			dropboxFileManagingMachine();
+        	
 		}
 		
 		

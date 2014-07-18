@@ -66,6 +66,8 @@
             android:screenOrientation="portrait" 
             android:exported="true">
             
+            
+            
             <meta-data android:name="com.google.android.apps.drive.APP_ID" android:value="id=536981894655" />
             
 	        <intent-filter>
@@ -77,6 +79,11 @@
 	        </intent-filter>
             
         </activity>
+        
+        
+        
+        
+        
         
         
         <activity android:name="com.dropbox.sync.android.DbxAuthActivity"/>

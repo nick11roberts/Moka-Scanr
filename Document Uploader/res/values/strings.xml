@@ -17,7 +17,7 @@
     <string name="options_button_go">CONTINUE</string>
     
     <!-- PREVIEW ACTIVITY -->
-    <string name="preview_heading">Upload this document to Google Drive?</string>
+    <string name="preview_heading">Upload this document to Dropbox?</string>
     <string name="preview_button_upload">UPLOAD</string>
     <string name="preview_button_cancel">CANCEL</string>
     

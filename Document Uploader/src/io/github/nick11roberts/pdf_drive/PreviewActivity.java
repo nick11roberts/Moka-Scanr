@@ -218,12 +218,14 @@ public class PreviewActivity extends Activity {
 	public void addImagesToPDF () throws Exception
 	{           
 		
-		int indentation = 0;
+		
 		
 		Document document = new Document();
 		
 		Bitmap bmpImage = imagesFromCamera.get(camIndex-1);
 		
+		// Rotate the bmp 90 degrees... 
+		bmpImage = rotateImage(bmpImage, -90);
 		
 		
 		ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -241,7 +243,7 @@ public class PreviewActivity extends Activity {
 
         Image image = Image.getInstance(imagebytes);
         
-        image.rotate();
+        //image.rotate();
         
         
         float scaler = ((document.getPageSize().getWidth()) / image.getWidth()) * 100;
@@ -273,6 +275,10 @@ public class PreviewActivity extends Activity {
 		
 		
 		
+		
+		if(optionClassPrev.getTitle().lastIndexOf(".pdf") == -1){
+			optionClassPrev.setTitle(optionClassPrev.getTitle() + ".pdf");
+		}
 		
 		String fileName = optionClassPrev.getTitle(); // CHANGE THIS EVENTUALLY
 		
@@ -311,16 +317,21 @@ public class PreviewActivity extends Activity {
 			//}
 		}else{
 			
-			sameFileIndex++;
-			String indexString = "(" + Integer.toString(sameFileIndex) + ")";
 			String newTitle = optionClassPrev.getTitle();
-			int dotIndex = newTitle.lastIndexOf(".");
-			if(dotIndex != -1){ // if it has a file extension... 
-				String beforeDot = newTitle.substring(0, dotIndex);
-				String afterDot = newTitle.substring(dotIndex, newTitle.length());
-				newTitle = beforeDot + indexString +  afterDot;
-			}else{ // no file extension... 
-				newTitle = optionClassPrev.getTitle() + indexString;
+			
+			String tmpNewTitle = "";
+			
+			sameFileIndex += 1;
+			
+			if(sameFileIndex > 1){
+				
+				
+				newTitle = optionClassPrev.getTitle().replaceFirst( "(\\d{1,})", Integer.toString(sameFileIndex) );
+			}
+			else if(sameFileIndex == 1){
+				int pdfSubstring = optionClassPrev.getTitle().lastIndexOf(".pdf");
+				tmpNewTitle = newTitle.substring(0, pdfSubstring) + "(1).pdf";
+				newTitle = tmpNewTitle;
 			}
 			
 			optionClassPrev.setTitle(newTitle);
@@ -329,6 +340,9 @@ public class PreviewActivity extends Activity {
         	
 		}
 		
+		
+		/////////// GOT CAUGHT IN INF RECURSIVE LOOP AFTER ENTERING TITLE WITH NO ".pdf" 
+		//// PLEASE FIX!!!!
 		
 		
 		

@@ -216,51 +216,32 @@ public class PreviewActivity extends Activity {
 	
 	
 	public void addImagesToPDF () throws Exception
-	{           
-		
-		
-		
+	{	
 		Document document = new Document();
-		
-		Bitmap bmpImage = imagesFromCamera.get(camIndex-1);
-		
-		// Rotate the bmp 90 degrees... 
-		bmpImage = rotateImage(bmpImage, -90);
-		
-		
-		ByteArrayOutputStream stream = new ByteArrayOutputStream();
-
-		bmpImage.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] imagebytes = stream.toByteArray();
-
-        stream.close();
-        stream = null;
-
-        
-        
-        PdfWriter.getInstance(document, new FileOutputStream(tmpPdfFile));
-        document.open();
-
-        Image image = Image.getInstance(imagebytes);
-        
-        //image.rotate();
-        
-        
-        float scaler = ((document.getPageSize().getWidth()) / image.getWidth()) * 100;
-        
-        
-        
-        
-        image.scalePercent(scaler);
-
-
-        //image.scaleAbsolute(bmpImage.getWidth(),
-        //		bmpImage.getHeight());
-        image.setAlignment(Image.MIDDLE |Image.ALIGN_MIDDLE);
-
-        document.add(image);
-        document.close();
-		
+		ByteArrayOutputStream stream;
+		Bitmap bmpImage;
+		byte[] imagebytes;
+		Image image;
+		float scaler;	
+		PdfWriter.getInstance(document, new FileOutputStream(tmpPdfFile));
+		document.open();
+		for(int i = 0; i <= camIndex-1; i++){
+			stream = new ByteArrayOutputStream();
+			bmpImage = Bitmap.createBitmap(imagesFromCamera.get(i));
+			bmpImage = rotateImage(bmpImage, -90);			
+			bmpImage.compress(Bitmap.CompressFormat.PNG, 100, stream);			
+	        imagebytes = stream.toByteArray();
+	        image = Image.getInstance(imagebytes);	        	        
+	        scaler = ((document.getPageSize().getWidth()) / image.getWidth()) * 100;	        
+	        image.scalePercent(scaler);
+	        image.setAlignment(Image.MIDDLE |Image.ALIGN_MIDDLE);
+	        document.add(image);	        
+	        document.newPage();
+	        stream.close();
+	        stream = null;
+		}	
+				
+        document.close();		
     }
 	
 	
@@ -341,8 +322,7 @@ public class PreviewActivity extends Activity {
 		}
 		
 		
-		/////////// GOT CAUGHT IN INF RECURSIVE LOOP AFTER ENTERING TITLE WITH NO ".pdf" 
-		//// PLEASE FIX!!!!
+		
 		
 		
 		

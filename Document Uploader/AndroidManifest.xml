@@ -10,9 +10,19 @@
         android:minSdkVersion="13"
         android:targetSdkVersion="19" />
 
-    <uses-feature 
-        android:name="android.hardware.camera" />
+   <uses-feature 
+       android:name="android.hardware.camera"
+       android:required="true" />
+   
+   <uses-permission 
+       android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     
+   
+   
+   
+   
+   
+   
     <uses-permission 
         android:name="android.permission.GET_ACCOUNTS" />
      

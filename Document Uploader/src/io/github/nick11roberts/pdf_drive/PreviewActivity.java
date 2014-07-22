@@ -6,7 +6,10 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.dropbox.sync.android.DbxAccountManager;
 import com.dropbox.sync.android.DbxFile;
@@ -15,11 +18,15 @@ import com.dropbox.sync.android.DbxPath;
 import com.dropbox.sync.android.DbxPath.InvalidPathException;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -50,14 +57,15 @@ public class PreviewActivity extends Activity {
     
     //private Bitmap imageFromCamera;
     private ArrayList<Bitmap> imagesFromCamera = new ArrayList<Bitmap>();
+    private ArrayList<String> mCurrentPhotoPath = new ArrayList<String>();
     private int camIndex = 0;
     private File tmpPdfFile;
-	
     private int sameFileIndex = 0;
     
     // Global constants for Android specific values. 
     private static final int FLAG_ACTIVITY_CLEAR_TOP = 67108864;
     private static final int CAMERA_PIC_REQUEST = 1337;
+    static final int REQUEST_TAKE_PHOTO = 1;
     //private static final int CHOOSE_ACCOUNT = 0;
 
     
@@ -89,8 +97,8 @@ public class PreviewActivity extends Activity {
         
         // Preview's options object will be used here and elsewhere. 
         for(int i = 0; i <= optionClassPrev.getNumberOfPages()-1; i++){
-        	
-        	camCall();
+        	dispatchTakePictureIntent();
+        	//camCall();
         }
         
         
@@ -167,6 +175,53 @@ public class PreviewActivity extends Activity {
 	
 	
 	
+	private void galleryAddPic() {
+	    Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+	    File f = new File(mCurrentPhotoPath.get(camIndex-1));
+	    Uri contentUri = Uri.fromFile(f);
+	    mediaScanIntent.setData(contentUri);
+	    this.sendBroadcast(mediaScanIntent);
+	}
+	
+	
+
+	private void dispatchTakePictureIntent() {
+	    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+	    // Ensure that there's a camera activity to handle the intent
+	    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+	        // Create the File where the photo should go
+	        File photoFile = null;
+	        try {
+	            photoFile = createImageFile();
+	        } catch (IOException ex) {
+	            // Error occurred while creating the File
+	        }
+	        // Continue only if the File was successfully created
+	        if (photoFile != null) {
+	            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+	                    Uri.fromFile(photoFile));
+	            startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+	        }
+	    }
+	}
+	
+	
+
+	private File createImageFile() throws IOException {
+	    // Create an image file name
+	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+	    String imageFileName = "JPEG_" + timeStamp + "_";
+	    File storageDir = Environment.getExternalStoragePublicDirectory(
+	            Environment.DIRECTORY_PICTURES);
+	    File image = File.createTempFile(
+	        imageFileName,  
+	        ".jpg",       
+	        storageDir     
+	    );
+	    mCurrentPhotoPath.add("file:" + image.getAbsolutePath());
+	    return image;
+	}
+	
 	
 	
 	// Called by both upload and cancel buttons. 
@@ -225,7 +280,7 @@ public class PreviewActivity extends Activity {
 		float scaler;	
 		PdfWriter.getInstance(document, new FileOutputStream(tmpPdfFile));
 		document.open();
-		for(int i = 0; i <= camIndex-1; i++){
+		for(int i = camIndex-1; i >= 0; i--){
 			stream = new ByteArrayOutputStream();
 			bmpImage = Bitmap.createBitmap(imagesFromCamera.get(i));
 			bmpImage = rotateImage(bmpImage, -90);			
@@ -322,10 +377,11 @@ public class PreviewActivity extends Activity {
 		}
 		
 		
-		
-		
-		
-		
+		/*
+		for(int i = camIndex-1; i >= 0; i--){
+			deleteFile(mCurrentPhotoPath.get(i));
+		}
+		*/
 		
 		bringMainActivityToFront();
 		
@@ -352,6 +408,30 @@ public class PreviewActivity extends Activity {
 		    	
 		    	
 		    	
+		    }
+		    
+		    else if(requestCode == REQUEST_TAKE_PHOTO){
+		    	//Append Bitmap and increment index... 
+		    	
+		    	ContentResolver cr = this.getContentResolver();
+		    	
+		    	camIndex++;
+		    	
+		    	galleryAddPic();
+		    	
+		    	
+		    	Uri imageUri = Uri.parse(mCurrentPhotoPath.get(camIndex-1));
+		    	
+				try {
+					imagesFromCamera.add( android.provider.MediaStore.Images.Media.getBitmap(cr, imageUri) );
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 		    }
 		    
 		    

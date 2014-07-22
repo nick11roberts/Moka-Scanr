@@ -283,8 +283,8 @@ public class PreviewActivity extends Activity {
 		for(int i = camIndex-1; i >= 0; i--){
 			stream = new ByteArrayOutputStream();
 			bmpImage = Bitmap.createBitmap(imagesFromCamera.get(i));
-			bmpImage = rotateImage(bmpImage, -90);			
-			bmpImage.compress(Bitmap.CompressFormat.PNG, 100, stream);			
+			//bmpImage = rotateImage(bmpImage, -90);			
+			bmpImage.compress(Bitmap.CompressFormat.JPEG, 100, stream);			
 	        imagebytes = stream.toByteArray();
 	        image = Image.getInstance(imagebytes);	        	        
 	        scaler = ((document.getPageSize().getWidth()) / image.getWidth()) * 100;	        

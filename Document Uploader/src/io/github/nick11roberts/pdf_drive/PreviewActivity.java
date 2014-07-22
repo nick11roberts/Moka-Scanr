@@ -1,32 +1,43 @@
 package io.github.nick11roberts.pdf_drive;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
-import com.google.android.gms.common.api.GoogleApiClient;
-//import com.google.api.services.drive.DriveScopes;
 import com.dropbox.sync.android.DbxAccountManager;
-import com.dropbox.sync.android.DbxException;
-import com.dropbox.sync.android.DbxException.Unauthorized;
 import com.dropbox.sync.android.DbxFile;
-import com.dropbox.sync.android.DbxFileInfo;
 import com.dropbox.sync.android.DbxFileSystem;
 import com.dropbox.sync.android.DbxPath;
 import com.dropbox.sync.android.DbxPath.InvalidPathException;
 
-import android.accounts.AccountManager;
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
-import android.os.Build;
+
+import com.itextpdf.text.pdf.*;
+import com.itextpdf.text.*;
+
+
+
+
+
 
 public class PreviewActivity extends Activity {
 
@@ -44,13 +55,17 @@ public class PreviewActivity extends Activity {
     private static final int REQUEST_LINK_TO_DBX = 0;
     private DbxAccountManager mDbxAcctMgr;
     
-    private Bitmap imageFromCamera;
-	
+    //private Bitmap imageFromCamera;
+    private ArrayList<Bitmap> imagesFromCamera = new ArrayList<Bitmap>();
+    private ArrayList<String> mCurrentPhotoPath = new ArrayList<String>();
+    private int camIndex = 0;
+    private File tmpPdfFile;
     private int sameFileIndex = 0;
     
     // Global constants for Android specific values. 
     private static final int FLAG_ACTIVITY_CLEAR_TOP = 67108864;
     private static final int CAMERA_PIC_REQUEST = 1337;
+    static final int REQUEST_TAKE_PHOTO = 1;
     //private static final int CHOOSE_ACCOUNT = 0;
 
     
@@ -58,7 +73,7 @@ public class PreviewActivity extends Activity {
     @Override
 	protected void onResume() {
 		super.onResume();
-		System.out.println("onResume called... ");
+		
 		
 	}
     
@@ -82,10 +97,12 @@ public class PreviewActivity extends Activity {
         
         // Preview's options object will be used here and elsewhere. 
         for(int i = 0; i <= optionClassPrev.getNumberOfPages()-1; i++){
-        	//Temporarily commented out for debugging purposes. 
+        	dispatchTakePictureIntent();
         	//camCall();
         }
         
+        
+        tmpPdfFile = new File(getFilesDir() + "/" + "tmp.pdf");
         
         final Button uploadButton = (Button) findViewById((Integer) R.id.uploadButton);
         final Button cancelButton = (Button) findViewById((Integer) R.id.cancelButton);
@@ -101,7 +118,7 @@ public class PreviewActivity extends Activity {
 	        	
 	        	
 	        	if (mDbxAcctMgr.hasLinkedAccount()) {
-	    			System.out.println("onResume called... Account linked...");
+	    			
 	    			try {
 	    				dropboxFileManagingMachine();
 	    			} catch (InvalidPathException e) {
@@ -110,9 +127,12 @@ public class PreviewActivity extends Activity {
 	    			} catch (IOException e) {
 	    				// TODO Auto-generated catch block
 	    				e.printStackTrace();
-	    			}
+	    			} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 	    		} else{
-	    			System.out.println("onResume called... Account NOT linked...");
+	    			
 	    			toDropboxNotLinked(); // Will eventually bring the main activity to the front... 
 	    		}
 	        	
@@ -130,6 +150,8 @@ public class PreviewActivity extends Activity {
 
 			
 	    });
+        
+        
         
         
         
@@ -153,6 +175,53 @@ public class PreviewActivity extends Activity {
 	
 	
 	
+	private void galleryAddPic() {
+	    Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+	    File f = new File(mCurrentPhotoPath.get(camIndex-1));
+	    Uri contentUri = Uri.fromFile(f);
+	    mediaScanIntent.setData(contentUri);
+	    this.sendBroadcast(mediaScanIntent);
+	}
+	
+	
+
+	private void dispatchTakePictureIntent() {
+	    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+	    // Ensure that there's a camera activity to handle the intent
+	    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+	        // Create the File where the photo should go
+	        File photoFile = null;
+	        try {
+	            photoFile = createImageFile();
+	        } catch (IOException ex) {
+	            // Error occurred while creating the File
+	        }
+	        // Continue only if the File was successfully created
+	        if (photoFile != null) {
+	            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT,
+	                    Uri.fromFile(photoFile));
+	            startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
+	        }
+	    }
+	}
+	
+	
+
+	private File createImageFile() throws IOException {
+	    // Create an image file name
+	    String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+	    String imageFileName = "JPEG_" + timeStamp + "_";
+	    File storageDir = Environment.getExternalStoragePublicDirectory(
+	            Environment.DIRECTORY_PICTURES);
+	    File image = File.createTempFile(
+	        imageFileName,  
+	        ".jpg",       
+	        storageDir     
+	    );
+	    mCurrentPhotoPath.add("file:" + image.getAbsolutePath());
+	    return image;
+	}
+	
 	
 	
 	// Called by both upload and cancel buttons. 
@@ -161,6 +230,9 @@ public class PreviewActivity extends Activity {
 		resetMainIntent.addFlags(FLAG_ACTIVITY_CLEAR_TOP);
     	startActivity(resetMainIntent);
 	}
+	
+	
+	
 	
 	
 	
@@ -181,60 +253,121 @@ public class PreviewActivity extends Activity {
 		
 		mDbxAcctMgr.startLink((Activity)this, REQUEST_LINK_TO_DBX);
 		
-		System.out.println("start link... ");
+		
 		
 		
 	}
 	
-	private void dropboxFileManagingMachine() throws InvalidPathException, IOException{
+	
+	public static Bitmap rotateImage(Bitmap src, float degree) 
+	{
+	        // create new matrix
+	        Matrix matrix = new Matrix();
+	        // setup rotation degree
+	        matrix.postRotate(degree);
+	        Bitmap bmp = Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
+	        return bmp;
+	}
+	
+	
+	public void addImagesToPDF () throws Exception
+	{	
+		Document document = new Document();
+		ByteArrayOutputStream stream;
+		Bitmap bmpImage;
+		byte[] imagebytes;
+		Image image;
+		float scaler;	
+		PdfWriter.getInstance(document, new FileOutputStream(tmpPdfFile));
+		document.open();
+		for(int i = camIndex-1; i >= 0; i--){
+			stream = new ByteArrayOutputStream();
+			bmpImage = Bitmap.createBitmap(imagesFromCamera.get(i));
+			//bmpImage = rotateImage(bmpImage, -90);			
+			bmpImage.compress(Bitmap.CompressFormat.JPEG, 100, stream);			
+	        imagebytes = stream.toByteArray();
+	        image = Image.getInstance(imagebytes);	        	        
+	        scaler = ((document.getPageSize().getWidth()) / image.getWidth()) * 100;	        
+	        image.scalePercent(scaler);
+	        image.setAlignment(Image.MIDDLE |Image.ALIGN_MIDDLE);
+	        document.add(image);	        
+	        document.newPage();
+	        stream.close();
+	        stream = null;
+		}	
+				
+        document.close();		
+    }
+	
+	
+	
+	
+	
+	
+	
+	private void dropboxFileManagingMachine() throws Exception{
 		
 		
 		
-		System.out.println("DROPBOX FILE MANAGING THING WORKS");
 		
+		
+		
+		if(optionClassPrev.getTitle().lastIndexOf(".pdf") == -1){
+			optionClassPrev.setTitle(optionClassPrev.getTitle() + ".pdf");
+		}
 		
 		String fileName = optionClassPrev.getTitle(); // CHANGE THIS EVENTUALLY
 		
 		
 		DbxPath path = new DbxPath(DbxPath.ROOT, fileName );
 		
+		
+		
 		if(!optionClassPrev.getFolder().isEmpty()){ // Check if the user wants a new folder
 			DbxPath optUsrPath = new DbxPath("/" + optionClassPrev.getFolder());
 			path = new DbxPath(optUsrPath, fileName );
-		}
-		else{ 
-			// no new folder, ROOT then (path doesn't change)... 
-		}
+		}// no new folder, ROOT then (path doesn't change)... 
 		
 		
+		
+		addImagesToPDF(); // make PDF file locally... 
+		
+		/*
+		FileInputStream iStream = new FileInputStream(tmpPdfFile);
+		byte[] bytes = new byte[(int)tmpPdfFile.length()];
+		iStream.read(bytes);
+		iStream.close();
+		*/
 		
 		// CREATE DROPBOX FILE SYSTEM
 		DbxFileSystem dbxFs = DbxFileSystem.forAccount(mDbxAcctMgr.getLinkedAccount());
 		
 		// CREATE DROPBOX FILE IF NOT EXIST
 		if (!dbxFs.exists(path)) {
-			DbxFile testFile = dbxFs.create(path);
-			try {
-			    testFile.writeString("Hello Dropbox!!!");
-			} finally {
-			    testFile.close();
-			}
+			DbxFile file = dbxFs.create(path);
+			file.writeFromExistingFile(tmpPdfFile, true);
+			//try {
+			//	file.writeString("Hello Dropbox!!!");
+			//} finally {
+				file.close();
+			//}
 		}else{
-			/*
-			Toast toast = Toast.makeText(PreviewActivity.this, getResources().getString(R.string.dropbox_fail_file_exists), 
-    				Toast.LENGTH_SHORT);
-        	toast.show();
-        	*/
-			sameFileIndex++;
-			String indexString = "(" + Integer.toString(sameFileIndex) + ")";
+			
 			String newTitle = optionClassPrev.getTitle();
-			int dotIndex = newTitle.lastIndexOf(".");
-			if(dotIndex != -1){ // if it has a file extension... 
-				String beforeDot = newTitle.substring(0, dotIndex);
-				String afterDot = newTitle.substring(dotIndex, newTitle.length());
-				newTitle = beforeDot + indexString +  afterDot;
-			}else{ // no file extension... 
-				newTitle = optionClassPrev.getTitle() + indexString;
+			
+			String tmpNewTitle = "";
+			
+			sameFileIndex += 1;
+			
+			if(sameFileIndex > 1){
+				
+				
+				newTitle = optionClassPrev.getTitle().replaceFirst( "(\\d{1,})", Integer.toString(sameFileIndex) );
+			}
+			else if(sameFileIndex == 1){
+				int pdfSubstring = optionClassPrev.getTitle().lastIndexOf(".pdf");
+				tmpNewTitle = newTitle.substring(0, pdfSubstring) + "(1).pdf";
+				newTitle = tmpNewTitle;
 			}
 			
 			optionClassPrev.setTitle(newTitle);
@@ -244,9 +377,11 @@ public class PreviewActivity extends Activity {
 		}
 		
 		
-		//////// REPLACE ABOVE WITH 
-		// imageFromCamera
-		
+		/*
+		for(int i = camIndex-1; i >= 0; i--){
+			deleteFile(mCurrentPhotoPath.get(i));
+		}
+		*/
 		
 		bringMainActivityToFront();
 		
@@ -256,38 +391,63 @@ public class PreviewActivity extends Activity {
 	
 	
 	
+	
+	
+	
 	// Called by startActivityForResult method. 
 		protected void onActivityResult(int requestCode, int resultCode, Intent data) { 
 			
-			System.out.println("Reaches onActivityResult...");
+			
 			
 		    if (requestCode == CAMERA_PIC_REQUEST) {
-		    	imageFromCamera = (Bitmap) data.getExtras().get("data");
 		    	
-		    	//add to a Bitmap array of numOfPages in length?
+		    	//Append Bitmap and increment index... 
+		    	
+		    	camIndex++;
+		    	imagesFromCamera.add( (Bitmap)data.getExtras().get("data") );
+		    	
+		    	
 		    	
 		    }
 		    
-		    /*
-		    if (requestCode == CHOOSE_ACCOUNT && resultCode == RESULT_OK && data != null) {
-		    	Bitmap imageFromCamera = (Bitmap) data.getExtras().get("data");
+		    else if(requestCode == REQUEST_TAKE_PHOTO){
+		    	//Append Bitmap and increment index... 
 		    	
-		    	//add to a Bitmap array of numOfPages in length?
+		    	ContentResolver cr = this.getContentResolver();
 		    	
+		    	camIndex++;
+		    	
+		    	galleryAddPic();
+		    	
+		    	
+		    	Uri imageUri = Uri.parse(mCurrentPhotoPath.get(camIndex-1));
+		    	
+				try {
+					imagesFromCamera.add( android.provider.MediaStore.Images.Media.getBitmap(cr, imageUri) );
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 		    }
-		    */	
+		    
+		    
 		    
 		    else if (requestCode == REQUEST_LINK_TO_DBX) {
-		    	System.out.println("requestCode...");
+		    	
 	            if (resultCode == Activity.RESULT_OK) {
-	            	System.out.println("result is okay...");
+	            	
 	            	try {
-	            		System.out.println("in try... should call file man...");
+					
 						dropboxFileManagingMachine();
+					
 					} catch (InvalidPathException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					} catch (IOException e) {
+					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}

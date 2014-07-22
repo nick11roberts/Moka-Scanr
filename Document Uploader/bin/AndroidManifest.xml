@@ -10,9 +10,19 @@
         android:minSdkVersion="13"
         android:targetSdkVersion="19" />
 
-    <uses-feature 
-        android:name="android.hardware.camera" />
+   <uses-feature 
+       android:name="android.hardware.camera"
+       android:required="true" />
+   
+   <uses-permission 
+       android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     
+   
+   
+   
+   
+   
+   
     <uses-permission 
         android:name="android.permission.GET_ACCOUNTS" />
      
@@ -66,6 +76,8 @@
             android:screenOrientation="portrait" 
             android:exported="true">
             
+            
+            
             <meta-data android:name="com.google.android.apps.drive.APP_ID" android:value="id=536981894655" />
             
 	        <intent-filter>
@@ -77,6 +89,11 @@
 	        </intent-filter>
             
         </activity>
+        
+        
+        
+        
+        
         
         
         <activity android:name="com.dropbox.sync.android.DbxAuthActivity"/>

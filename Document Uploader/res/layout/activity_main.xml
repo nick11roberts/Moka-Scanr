@@ -20,7 +20,6 @@
         android:text="@string/main_heading"
         android:textAlignment="center"
         android:gravity="center"
-        android:textAllCaps="true"
         android:textSize="28sp" />
 
     <Button

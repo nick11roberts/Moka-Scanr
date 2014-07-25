@@ -56,6 +56,9 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.itextpdf.text.pdf.*;
@@ -134,6 +137,18 @@ public class PreviewActivity extends Activity {
         final Button uploadButton = (Button) findViewById((Integer) R.id.uploadButton);
         final Button cancelButton = (Button) findViewById((Integer) R.id.cancelButton);
         
+        /*
+        LinearLayout scrollLayout = (LinearLayout)findViewById(R.id.scrollingLinearLayout);
+        ArrayList<ImageView> scrollingImages = new ArrayList<ImageView>();
+        ImageView tempImageView = new ImageView(this);
+        
+        for(int i = camIndex-1; i >= 0; i--){ //////////Doesn't do anything visible yet...
+        	tempImageView.setImageBitmap(imagesFromCamera.get(i)); 
+        	scrollingImages.add(tempImageView);
+        	scrollLayout.addView(scrollingImages.get(i));
+        }*/
+        
+        
         
         uploadButton.setOnClickListener(new View.OnClickListener() {
 	        public void onClick(View v) {   
@@ -162,12 +177,11 @@ public class PreviewActivity extends Activity {
 	    			
 	    			toDropboxNotLinked(); // Will eventually bring the main activity to the front... 
 	    		}
-	        	
-	        	
-	        	
-	        	
 	    		
-	        	
+
+	    		// Show progress bar!! 
+	        	ProgressBar progressBar = (ProgressBar) findViewById((Integer) R.id.onUploadProgressBar);
+	        	progressBar.setVisibility(View.VISIBLE);
 	        	
 	        	
 	        	

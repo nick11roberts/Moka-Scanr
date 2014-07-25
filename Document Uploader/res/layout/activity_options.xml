@@ -20,7 +20,6 @@
         android:text="@string/options_heading"
         android:textAlignment="center"
         android:gravity="center"
-        android:textAllCaps="true"
         android:textSize="28sp" />
 
     <TableLayout

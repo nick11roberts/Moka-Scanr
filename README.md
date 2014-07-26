@@ -9,7 +9,7 @@ what is typical of the ADT bundle (which comes with the Eclipse IDE)
 or the Eclipse IDE with the ADT plugin (available from the Eclipse marketplace). 
 
 
-When running this, add your own app key and secret to a new xml file called 'keys.xml' and use the following format (keep item names, but replace values with your key/secret): 
+When building, add your own app key and secret to a new xml file in 'Document Uploader/res/values/' called 'keys.xml' and use the following format (keep item names, but replace values with your key/secret): 
 ````xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>

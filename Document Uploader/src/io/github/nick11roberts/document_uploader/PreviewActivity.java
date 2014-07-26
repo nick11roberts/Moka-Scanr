@@ -25,8 +25,9 @@
 *******/
 
 
-package io.github.nick11roberts.pdf_drive;
+package io.github.nick11roberts.document_uploader;
 
+import io.github.nick11roberts.document_uploader.R;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -37,13 +38,11 @@ import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
 import com.dropbox.sync.android.DbxAccountManager;
 import com.dropbox.sync.android.DbxFile;
 import com.dropbox.sync.android.DbxFileSystem;
 import com.dropbox.sync.android.DbxPath;
 import com.dropbox.sync.android.DbxPath.InvalidPathException;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -60,7 +59,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-
 import com.itextpdf.text.pdf.*;
 import com.itextpdf.text.*;
 

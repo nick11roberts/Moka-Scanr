@@ -1,4 +1,4 @@
-package io.github.nick11roberts.pdf_drive;
+package io.github.nick11roberts.document_uploader;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.os.Build;
+import io.github.nick11roberts.document_uploader.R;
 
 public class OptionsActivity extends Activity {
 

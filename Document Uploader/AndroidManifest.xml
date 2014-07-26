@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.github.nick11roberts.pdf_drive"
+    package="io.github.nick11roberts.document_uploader"
     android:versionCode="1"
     android:versionName="0.9.8" >
     
@@ -53,7 +53,7 @@
 		
         
         <activity
-            android:name="io.github.nick11roberts.pdf_drive.MainActivity"
+            android:name="io.github.nick11roberts.document_uploader.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
@@ -64,14 +64,14 @@
         </activity>
         
         <activity
-            android:name="io.github.nick11roberts.pdf_drive.OptionsActivity"
+            android:name="io.github.nick11roberts.document_uploader.OptionsActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
            
         </activity>
         
         <activity
-            android:name="io.github.nick11roberts.pdf_drive.PreviewActivity"
+            android:name="io.github.nick11roberts.document_uploader.PreviewActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" 
             android:exported="true">

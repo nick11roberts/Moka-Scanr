@@ -1,4 +1,4 @@
-package io.github.nick11roberts.pdf_drive;
+package io.github.nick11roberts.document_uploader;
 
 import java.io.Serializable;
 

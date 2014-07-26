@@ -1,4 +1,4 @@
-package io.github.nick11roberts.pdf_drive;
+package io.github.nick11roberts.document_uploader;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.os.Build;
+import io.github.nick11roberts.document_uploader.R;
 
 
 public class MainActivity extends Activity {

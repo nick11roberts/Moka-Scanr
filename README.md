@@ -10,14 +10,13 @@ or the Eclipse IDE with the ADT plugin (available from the Eclipse marketplace).
 
 
 When running this, add your own app key and secret to a new xml file called 'keys.xml' and use the following format (keep item names, but replace values with your key/secret): 
-````
+````xml
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
    <item name="dropbox_app_key" type="string">app_key_here</item>
    <item name="dropbox_app_secret" type="string">app_secret_here</item>
    <item name="dropbox_app_key_manifest" type="string">db-app_key_here</item>
 </resources>
-
 ````
 In the case of dropbox_app_key_manifest, the format is db-x, x being your app key, it is important to keep the 'db-' prefix. 
 

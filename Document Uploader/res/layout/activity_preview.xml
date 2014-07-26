@@ -16,20 +16,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:paddingBottom="30dp"
-        android:paddingTop="40dp"
+        android:paddingBottom="40dp"
+        android:paddingTop="60dp"
         android:text="@string/preview_heading"
         android:textAlignment="center"
-        
         android:textSize="28sp" />
 
     <TableRow
-        style="?android:attr/buttonBarButtonStyle"
         android:id="@+id/tableRow1"
+        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp"
         android:shrinkColumns="*"
-		android:stretchColumns="*"  >
+        android:stretchColumns="*" >
 
         <Button
             style="?android:attr/buttonBarButtonStyle"
@@ -75,29 +76,31 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:indeterminate="true"
-            android:padding="20dp"
+            android:paddingTop="20dp"
             android:visibility="invisible" />
         
     </TableRow>
-
-    <TableRow
-        android:id="@+id/tableRow3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-
-            <LinearLayout
-                android:id="@+id/scrollingLinearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal" >
-            </LinearLayout>
-        </HorizontalScrollView>
-
-    </TableRow>
-
+    
+	<!-- 
+	    <TableRow
+	        android:id="@+id/tableRow3"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content" >
+	
+	        <HorizontalScrollView
+	            android:id="@+id/horizontalScrollView1"
+	            android:layout_width="fill_parent"
+	            android:layout_height="wrap_content" >
+	
+	            <LinearLayout
+	                android:id="@+id/scrollingLinearLayout"
+	                android:layout_width="wrap_content"
+	                android:layout_height="match_parent"
+	                android:orientation="horizontal" >
+	            </LinearLayout>
+	        </HorizontalScrollView>
+	
+	    </TableRow>
+	 -->
+	 
 </LinearLayout>

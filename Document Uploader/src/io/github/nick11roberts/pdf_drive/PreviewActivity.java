@@ -67,8 +67,6 @@ import com.itextpdf.text.*;
 
 
 
-
-
 public class PreviewActivity extends Activity {
 
 	// We need this because the passed options object cannot be made public. 
@@ -79,9 +77,8 @@ public class PreviewActivity extends Activity {
 	
 	// stuff for Dropbox
 
-	private static final String appKey = "qahwki8qn4p53oi";
-    private static final String appSecret = "aseeqi78l8nnuuz";
-    
+	private String appKey;
+    private String appSecret;    
     private static final int REQUEST_LINK_TO_DBX = 0;
     private DbxAccountManager mDbxAcctMgr;
     
@@ -116,6 +113,10 @@ public class PreviewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preview);
         
+        //Set application key and secret...
+        appKey = getResources().getString(R.string.dropbox_app_key);
+        appSecret = getResources().getString(R.string.dropbox_app_secret);
+        
         // Receive options object from OptionsActivity class which launched this activity.
     	Intent launchPreviewIntent = getIntent();
         Options optionClassOp = (Options)launchPreviewIntent.getSerializableExtra("OptionItems");
@@ -146,8 +147,10 @@ public class PreviewActivity extends Activity {
         	tempImageView.setImageBitmap(imagesFromCamera.get(i)); 
         	scrollingImages.add(tempImageView);
         	scrollLayout.addView(scrollingImages.get(i));
-        }*/
+        }
         
+        setContentView(scrollLayout);
+        */
         
         
         uploadButton.setOnClickListener(new View.OnClickListener() {

@@ -15,11 +15,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:paddingBottom="60dp"
         android:paddingTop="130dp"
         android:text="@string/main_heading"
         android:textAlignment="center"
-        android:gravity="center"
+        android:textColor="@color/button_color"
         android:textSize="28sp" />
 
     <Button
@@ -28,6 +29,7 @@
         android:layout_height="40dp"
         android:background="@color/button_color"
         android:text="@string/main_button_upload"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@color/bg_color" />
 
 </LinearLayout>

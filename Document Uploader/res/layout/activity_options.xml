@@ -16,11 +16,12 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
+        android:gravity="center"
+        android:paddingBottom="25dp"
         android:paddingTop="20dp"
         android:text="@string/options_heading"
         android:textAlignment="center"
-        android:gravity="center"
+        android:textColor="@color/button_color"
         android:textSize="28sp" />
 
     <TableLayout
@@ -39,14 +40,16 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/options_title" />
+                android:text="@string/options_title"
+                android:textColor="@color/button_color" />
 
             <EditText
                 android:id="@+id/inputTextDocumentTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="text" >
+                android:inputType="text"
+                android:textColor="@color/button_color" >
                 
                 <requestFocus />
                 
@@ -64,14 +67,16 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/options_pages" />
+                android:text="@string/options_pages"
+                android:textColor="@color/button_color" />
 
             <EditText
                 android:id="@+id/inputTextNumOfPages"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="number">
+                android:inputType="number"
+                android:textColor="@color/button_color" >
                 
             </EditText>
 
@@ -87,14 +92,16 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/options_folder" />
+                android:text="@string/options_folder"
+                android:textColor="@color/button_color" />
 
             <EditText
                 android:id="@+id/inputTextFolder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ems="10"
                 android:inputType="text"
-                android:ems="10" />
+                android:textColor="@color/button_color" />
 
         </TableRow>
     </TableLayout>
@@ -105,6 +112,7 @@
 	    android:layout_height="40dp"
 	    android:background="@color/button_color"
 	    android:text="@string/options_button_go"
-	    android:textAlignment="center" />
+	    android:textAlignment="center"
+	    android:textColor="@color/bg_color" />
 
 </LinearLayout>

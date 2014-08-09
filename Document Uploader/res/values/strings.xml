@@ -6,18 +6,18 @@
     
     
     <!-- MAIN ACTIVITY -->
-    <string name="main_heading">Upload a new PDF</string>
+    <string name="main_heading">Moka Scan.\nScan a document.</string>
     <string name="main_button_upload">Begin</string>
 
     <!-- OPTIONS ACTIVITY -->    
-    <string name="options_heading">Upload options</string>
+    <string name="options_heading">Upload options.</string>
     <string name="options_pages">Number of pages?</string>
     <string name="options_title">Title?</string>
     <string name="options_folder">Folder? (optional)</string>
     <string name="options_button_go">Continue</string>
     
     <!-- PREVIEW ACTIVITY -->
-    <string name="preview_heading">Upload this document to Dropbox?</string>
+    <string name="preview_heading">Upload this document\nto Dropbox?</string>
     <string name="preview_button_upload">Upload</string>
     <string name="preview_button_cancel">Cancel</string>
     

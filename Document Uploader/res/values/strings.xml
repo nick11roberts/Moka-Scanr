@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Document Uploader</string>
+    <string name="app_name">Moka Scanr</string>
     <string name="action_settings">Settings</string>
     
     
     <!-- MAIN ACTIVITY -->
-    <string name="main_heading">Moka Scan.\nScan a document.</string>
+    <string name="main_heading">Moka Scanr.\nScan a document.</string>
     <string name="main_button_upload">Begin</string>
 
     <!-- OPTIONS ACTIVITY -->    

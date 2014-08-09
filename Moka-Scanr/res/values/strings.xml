@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Moka Scanr</string>
+    <string name="action_settings">Settings</string>
+    
+    
+    <!-- MAIN ACTIVITY -->
+    <string name="main_heading">Moka Scanr.\nScan a document.</string>
+    <string name="main_button_upload">Begin</string>
+
+    <!-- OPTIONS ACTIVITY -->    
+    <string name="options_heading">Upload options.</string>
+    <string name="options_pages">Number of pages?</string>
+    <string name="options_title">Title?</string>
+    <string name="options_folder">Folder? (optional)</string>
+    <string name="options_button_go">Continue</string>
+    
+    <!-- PREVIEW ACTIVITY -->
+    <string name="preview_heading">Upload this document\nto Dropbox?</string>
+    <string name="preview_button_upload">Upload</string>
+    <string name="preview_button_cancel">Cancel</string>
+    
+    <!-- TOASTS -->
+    <string name="toast_title_and_page_num">Please enter a title and number of pages.</string>
+    <string name="toast_page_num">Please enter a number of pages.</string>
+    <string name="toast_title">Please enter a title.</string>
+    <string name="dropbox_fail">Cannot connect to Dropbox.</string>
+    <string name="dropbox_fail_file_exists">File already exists.</string>
+    
+
+</resources>

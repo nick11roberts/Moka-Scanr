@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <item name="dropbox_app_key" type="string">9od95m1dcw74qbt</item>
+   <item name="dropbox_app_secret" type="string">hf9ealmoef9lvvo</item>
+   <item name="dropbox_app_key_manifest" type="string">db-9od95m1dcw74qbt</item>
+</resources>
